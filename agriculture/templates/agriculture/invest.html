@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invest in Farmers</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f9;
+            color: #343a40;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #e9ecef;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #495057;
+        }
+
+        .btn-danger {
+            border-radius: 50px;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">GrowGuide</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/marketplace/"><i class="fas fa-store"></i> Marketplace</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invest/"><i class="fas fa-hand-holding-usd"></i> Invest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/"><i class="fas fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/recommendation/"><i class="fas fa-seedling"></i> Recommendation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/"><i class="fas fa-user-shield"></i> Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Invest in Farmers</h1>
+        <p class="lead">Support sustainable agriculture by investing in local farmers.</p>
+
+        <div class="row">
+            {% for farmer in farmers %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ farmer.name }}</h5>
+                        <p class="card-text">Location: {{ farmer.location }}</p>
+                        <p class="card-text">Loan Needed: ${{ farmer.loan_amount|floatformat:2 }}</p>
+                        <a href="#" class="btn btn-danger" onclick="showSuccessMessage('{{ farmer.name }}')"><i class="fas fa-dollar-sign"></i> Invest Now</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">The investment was successful!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 GrowGuide. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for modal -->
+    <script>
+        function showSuccessMessage(farmerName) {
+            var message = 'Investment in ' + farmerName + ' was successful!';
+            document.getElementById('successMessage').textContent = message;
+            $('#successModal').modal('show');
+        }
+    </script>
+
+</body>
+
+</html>

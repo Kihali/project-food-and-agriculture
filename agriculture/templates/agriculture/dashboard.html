@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f9;
+            color: #343a40;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #e9ecef;
+        }
+
+        .container {
+            margin-top: 50px;
+            padding-bottom: 30px;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .card-text {
+            font-size: 16px;
+            color: #495057;
+        }
+
+        .btn-outline-primary, .btn-outline-success {
+            border-radius: 50px;
+            padding: 10px 20px;
+        }
+
+        .btn-outline-primary {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-outline-success {
+            color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .sustainability-score {
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .sustainability-score-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+        }
+
+        .sustainability-score-label {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">GrowGuide</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/marketplace/"><i class="fas fa-store"></i> Marketplace</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/invest/"><i class="fas fa-hand-holding-usd"></i> Invest</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard/"><i class="fas fa-chart-line"></i> Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/recommendation/"><i class="fas fa-seedling"></i> Recommendation</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/"><i class="fas fa-user-shield"></i> Admin</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Impact Dashboard</h1>
+        <p class="lead text-center">Track the impact of your investments and agricultural initiatives with real-time data.</p>
+
+        <div class="row">
+            <!-- Total Earnings Card -->
+            <div class="col-md-4">
+                <div class="card bg-success text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-dollar-sign"></i> Total Earnings</h5>
+                        <p class="card-text display-4">${{ total_earnings|floatformat:2 }}</p>
+                        <p class="card-text">This is the cumulative earnings generated by farmers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Investments Card -->
+            <div class="col-md-4">
+                <div class="card bg-info text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-chart-pie"></i> Total Investments</h5>
+                        <p class="card-text display-4">${{ total_investments|floatformat:2 }}</p>
+                        <p class="card-text">The total amount invested in agriculture projects.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sustainability Score Card -->
+            <div class="col-md-4">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-leaf"></i> Sustainability Score</h5>
+                        <p class="card-text display-4">{{ sustainability_score|floatformat:2 }}%</p>
+                        <p class="card-text mt-3">This score represents the average sustainability of current projects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actionable Insights Section -->
+        <div class="action-buttons text-center">
+            <a href="/invest/" class="btn btn-outline-primary"><i class="fas fa-hand-holding-usd"></i> Make New Investment</a>
+            <a href="/recommendation/" class="btn btn-outline-success"><i class="fas fa-seedling"></i> Get Crop Recommendations</a>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="successMessage">The action was successful!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 GrowGuide All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
